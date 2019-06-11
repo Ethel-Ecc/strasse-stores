@@ -38,7 +38,7 @@ def initialize_the_store_blog_db():
 @with_appcontext
 def map_store_blog_db_initialization_to_terminal():
     initialize_the_store_blog_db()
-    click.echo("Initialization of strasse-store-blog DATABASE == Successful!")
+    click.echo("Initialization of strasse_store_blog DATABASE == Successful!")
 
 
 # The command below registers the 'connect_to_store_blog_db' by first closing all previous connection
