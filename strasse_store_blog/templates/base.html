@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_store_blog.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-primary">
+    <h3>
+        <a href="{{ url_for('blog_store_blog.homepage') }}"
+           style="color: #eeeeee;text-decoration: none">
+        Strasse Store Blog
+        </a>
+    </h3>
+    <ul>
+        {% if g.logged_in_user %}
+            <li><span style="color: #eeeeee">{{ g.logged_in_user['username'] }}</span>
+            <li><a href="{{ url_for('authentication_store_blog.logout_user_sessions') }}" style="color: #eeeeee">Log Out </a>
+        {% else %}
+            <li><a  href="{{ url_for('authentication_store_blog.login_store_blog') }}" style="color: #eeeeee">Log In</a>
+            <li><a  href="{{ url_for('authentication_store_blog.registration_store_blog') }}" style="color: #eeeeee">Register and Subscribe</a>
+        {% endif %}
+    </ul>
+
+</nav>
+
+<section class="content container">
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+
+    {% for message in get_flashed_messages() %}
+        <div class="flash text-center">{{ message }}</div>
+    {% endfor %}
+
+    {% block content %}{% endblock %}
+</section>
+
+</body>
+</html>

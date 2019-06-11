@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h5 class="mt-4">{% block title %}Welcome{% endblock %}</h5>
+    {% if g.logged_in_user %}
+        <a href="{{ url_for('blog_store_blog.homepage') }}" class="action">Create New Post</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% for blog_post in blog_posts %}
+        <article class="post">
+            <header>
+                <div>
+                    <h2>{{ blog_post['title'] }}</h2>
+                    <div class="about">by {{ blog_post['username'] }}
+                        on {{ blog_post[created_at].strftime('%Y-%m-%d') }}
+                    </div>
+                </div>
+                {% if g.logged_in_user['id'] == blog_post['author_id']  %}
+                        <a href="{{ url_for('blog_store_blog.homepage', id=blog_post['id']) }}" class="action">Edit</a>
+                {% endif %}
+            </header>
+            <p class="body">{{ blog_post['body'] }}</p>
+        </article>
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
