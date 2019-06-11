@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask
-from . import db_config
+from . import (db_config, authentication)
 
 
 def make_app(default_config=None):
@@ -30,6 +30,9 @@ def make_app(default_config=None):
 
     # This runs the db
     db_config.initialize_app(app)
+
+    # This registers the authentication blue-prints with the app instance.
+    app.register_blueprint(authentication.blue_prints)
 
     return app
 
