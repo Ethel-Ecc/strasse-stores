@@ -12,7 +12,7 @@ def connect_to_store_blog_db():
         g.database_store_blog = sqlite3.connect(current_app.config['DATABASE'], detect_types=sqlite3.PARSE_DECLTYPES)
         g.database_store_blog.row_factory = sqlite3.Row
 
-        return g.database_store_blog
+    return g.database_store_blog
 
 
 # The function here closes the connection to the db

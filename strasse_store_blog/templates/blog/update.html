@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block header %}
+    <h3 class="text-center">{% block title %}Edit "{{ get_post['title'] }}"{% endblock %}</h3>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form action="" method="post">
+            <div class="form-group row">
+                <label for="title" class="col-sm-2 col-form-label">Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{{ request.form['title'] or get_post['title'] }}"
+                           id="title" name="title" >
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="body" class="col-sm-2 col-form-label">Body</label>
+                <div class="col-sm-10">
+                    <textarea  class="form-control" id="body" name="body">{{ request.form['body'] or get_post['body'] }}</textarea>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input type="submit" class="btn btn-primary" value="Update">
+                </div>
+            </div>
+        </form>
+        <hr>
+
+        <form action="{{ url_for('blog_store_blog.delete', id = get_post['id']) }}" method="post">
+            <input type="submit" class="btn btn-outline-danger" value="Delete" onclick="return confirm('Are you sure?');">
+        </form>
+    </div>
+
+
+{% endblock %}

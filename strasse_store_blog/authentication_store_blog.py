@@ -58,7 +58,7 @@ def login_store_blog():
             session.clear()
             session['logged_in_user_id'] = logged_in_user['id']
 
-            return redirect(url_for('homepage'))
+            return redirect(url_for('blog_store_blog.homepage'))
 
         flash(error)
 
@@ -93,7 +93,7 @@ def user_login_required(view):
     def all_wrapped_views(**kwargs):
 
         if g.logged_in_user is None:
-            return redirect(url_for('authentication.login'))
+            return redirect(url_for('authentication_store_blog.login_store_blog'))
 
         return view(**kwargs)
 

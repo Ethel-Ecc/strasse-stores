@@ -3,28 +3,32 @@
 {% block header %}
     <h5 class="mt-4">{% block title %}Welcome{% endblock %}</h5>
     {% if g.logged_in_user %}
-        <a href="{{ url_for('blog_store_blog.homepage') }}" class="action">Create New Post</a>
+        <a class="action" href="{{ url_for('blog_store_blog.create') }}" > Create New Post </a>
     {% endif %}
+
 {% endblock %}
 
 {% block content %}
-    {% for blog_post in blog_posts %}
+    {% for blogpost in get_post %}
         <article class="post">
             <header>
                 <div>
-                    <h2>{{ blog_post['title'] }}</h2>
-                    <div class="about">by {{ blog_post['username'] }}
-                        on {{ blog_post[created_at].strftime('%Y-%m-%d') }}
-                    </div>
+                    <h2>{{ blogpost['title'] }}</h2>
+                    <div class="about">by {{ blogpost['username'] }} on {{ blogpost['created_at'].strftime('%Y-%m-%d') }}</div>
                 </div>
-                {% if g.logged_in_user['id'] == blog_post['author_id']  %}
-                        <a href="{{ url_for('blog_store_blog.homepage', id=blog_post['id']) }}" class="action">Edit</a>
+                {% if g.logged_in_user['id'] == blogpost['author_id']  %}
+                    <a class="action" href="{{ url_for('blog_store_blog.update_blog', id=blogpost['id']) }}">Edit</a>
                 {% endif %}
             </header>
-            <p class="body">{{ blog_post['body'] }}</p>
+
+            <p class="body">{{ blogpost['body'] }}</p>
+
         </article>
+
         {% if not loop.last %}
             <hr>
         {% endif %}
+
     {% endfor %}
+
 {% endblock %}
